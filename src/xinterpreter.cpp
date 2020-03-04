@@ -1,0 +1,129 @@
+#include <string>
+#include <iostream>
+
+#include "nlohmann/json.hpp"
+
+#include "xeus/xinterpreter.hpp"
+
+#include "xeus-clasp/xinterpreter.hpp"
+#include "xeus-clasp/xeus_clasp_config.hpp"
+
+namespace nl=nlohmann;
+
+namespace xclasp
+{
+  void interpreter::configure_impl()
+  {
+    /* TODO: Implement me*/
+  }
+
+  interpreter::interpreter(int /*argc*/, const char* const* /*argv*/)
+  {
+    xeus::register_interpreter(this);
+    redirect_output();
+    redirect_display();
+    /* TODO: Implement me*/
+  }
+  
+  interpreter::~interpreter()
+  {
+  }
+
+  nl::json interpreter::execute_request_impl(int execution_count,
+                                             const std::string& code,
+                                             bool silent,
+                                             bool /*store_history*/,
+                                             nl::json /*user_expressions*/,
+                                             bool allow_stdin)
+  {
+    std::clog << "Trying to execute " << code << "\n";
+    /* TODO: Implement me*/
+    return nullptr;
+  }
+
+  nl::json interpreter::complete_request_impl(
+      const std::string& code,
+      int cursor_pos)
+  {
+    std::clog << "Trying to complete request " << code << "\n";
+    /* TODO: Impelement me*/
+    return nullptr;
+  }
+
+  nl::json interpreter::inspect_request_impl(const std::string& code,
+                                             int curosor_pos,
+                                             int /*detail_level*/)
+  {
+    std::clog << "Trying to inspect request " << code << "\n";
+    /* TODO: Implement me*/
+    return nullptr;
+  }
+
+  nl::json interpreter::is_complete_request_impl(const std::string& code)
+  {
+    std::clog << "Checking if the request is complete: " << code << "\n";
+    /* TODO: Impelement me*/
+    return nullptr;
+  }
+
+  nl::json interpreter::kernel_info_request_impl()
+  {
+    nl::json result;
+    result["implementation"] = "xeus-clasp";
+    result["implementation_version"] = XCLASP_VERSION; //TODO: Update xeus-clasp version
+
+    /* The jupyter-console banner for xeus-clasp is the following:
+         __   ________ _    _  _____        _____ _                _____ _____  
+         \ \ / /  ____| |  | |/ ____|      / ____| |        /\    / ____|  __ \ 
+          \ V /| |__  | |  | | (___ ______| |    | |       /  \  | (___ | |__) |
+           > < |  __| | |  | |\___ \______| |    | |      / /\ \  \___ \|  ___/ 
+          / . \| |____| |__| |____) |     | |____| |____ / ____ \ ____) | |     
+         /_/ \_\______|\____/|_____/       \_____|______/_/    \_\_____/|_|     
+                                                                        
+                                                                       
+          C++ Jupyter Kernel for Clasp
+        */
+    std::string banner = ""
+      " __   ________ _    _  _____        _____ _                _____ _____\n"
+      " \\ \\ / /  ____| |  | |/ ____|      / ____| |        /\\    / ____|  __ \n" 
+      "  \\ V /| |__  | |  | | (___ ______| |    | |       /  \\  | (___ | |__) |\n"
+      "   > < |  __| | |  | |\\___ \\______| |    | |      / /\\ \\  \\___ \\|  ___/\n"
+      "  / . \\| |____| |__| |____) |     | |____| |____ / ____ \\ ____) | |   \n"  
+      " /_/ \\_\\______|\\____/|_____/       \\_____|______/_/    \\_\\_____/|_|  \n"           
+      "  C++ Jupyter Kernel for Clasp  \n"
+      "  Clasp ";
+
+    banner.append("0.5"); //TODO: Update clasp version
+    result["banner"] = banner;
+
+    result["language_info"]["name"] = "common lisp";
+    result["language_info"]["version"] = "0.5"; //TODO: Update clasp version
+    result["language_info"]["mimetype"] = "text/x-common-lisp";
+    result["language_info"]["file_extension"] = ".lisp";
+    result["status"] = "ok";
+    return result;
+  }
+
+  void interpreter::shutdown_request_impl()
+  {
+  }
+
+  nl::json interpreter::internal_request_impl(const nl::json& content)
+  {
+    /* TODO: Implement me*/
+    return nullptr;
+  }
+
+  void interpreter::redirect_output()
+  {
+    /* TODO: Impelment me*/
+
+  }
+
+  void interpreter::redirect_display()
+  {
+    /* TODO: Implement me*/
+  }
+  
+  
+}
