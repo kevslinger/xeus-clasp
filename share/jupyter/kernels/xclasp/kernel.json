@@ -1,0 +1,9 @@
+{
+  "display_name": "xclasp",
+  "argv": [
+    "/usr/local/bin/xclasp",
+    "-f",
+    "{connection_file}"
+  ],
+  "language": "lisp"
+}
