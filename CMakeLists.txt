@@ -1,5 +1,4 @@
-
-
+add_compile_options("-v" "-Wno-unused-parameter")
 
 cmake_minimum_required(VERSION 3.8)
 project(xeus-clasp)
@@ -146,6 +145,19 @@ target_include_directories(xeus-clasp
   #${PYTHON_INCLUDE_DIRS}
   $<BUILD_INTERFACE:${XEUS_CLASP_INCLUDE_DIR}>
   $<INSTALL_INTERFACE:include>)
+
+##############################
+##############################
+##### Trying to add include ##
+##### Directories for clasp ##
+##############################
+##############################
+include_directories("~/Development/clasp/build/boehm/")
+include_directories("~/Development/clasp/build/boehm/generated/")
+include_directories("~/Development/clasp/include/clasp/main/")
+include_directories("~/Development/clasp/include/")
+include_directories("/usr/local/Cellar/llvm/9.0.1/include")
+#include_directories("~/Development/clasp/src/")
 
 # TODO
 #target_link_libraries(xeus-clasp PUBLIC pybind11::embed xeus)
