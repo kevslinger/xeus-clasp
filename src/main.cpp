@@ -11,6 +11,9 @@
 #include "xeus-clasp/xinterpreter.hpp"
 #include "xdebugger.hpp"
 
+//#include "clasp/core/foundation.h"
+//#include "clasp/clasp.h"
+//#include "clasp/clbind/clbind.h"
 
 
 std::string extract_filename(int& argc, char* argv[])
