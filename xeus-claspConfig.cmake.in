@@ -1,0 +1,27 @@
+
+
+# xeus-clasp cmake module
+# This module sets the following variables in your project::
+#
+#   xeus-clasp_FOUND - true if xeus-clasp found on the system
+#   xeus-clasp_INCLUDE_DIRS - the directory containing xeus-clasp headers
+#   xeus-clasp_LIBRARY - the library for dynamic linking
+
+@PACKAGE_INIT@
+
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR};${CMAKE_MODULE_PATH}")
+
+@XEUS_CONFIG_CODE@
+
+include(CMakeFindDependencyMacro)
+find_dependency(xeus @xeus_REQUIRED_VERSION@)
+find_dependency(cppzmq @cppzmq_REQUIRED_VERSION@)
+# TODO
+#find_dependency(pybind11 @pybind11_REQUIRED_VERSION@)
+
+if(NOT TARGET xeus-clasp)
+  include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake")
+
+  get_target_property(@PROJECT_NAME@_INCLUDE_DIR xeus-clasp INTERFACE_INCLUDE_DIRECTORIES)
+  get_target_property(@PROJECT_NAME@_LIBRARY xeus-clasp LOCATION)
+endif()
