@@ -1,7 +1,6 @@
 *.dylib
 install_manifest.txt
 *.cmake
-*.in
 CMakeFiles/
 CMakeCache.txt
 .ipynb_checkpoints
