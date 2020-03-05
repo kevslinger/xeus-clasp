@@ -1,0 +1,9 @@
+{
+  "display_name": "xclasp",
+  "argv": [
+    "@CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_BINDIR@/xclasp",
+    "-f",
+    "{connection_file}"
+  ],
+  "language": "lisp"
+}
