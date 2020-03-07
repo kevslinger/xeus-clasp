@@ -1,4 +1,5 @@
-add_compile_options("-v" "-Wno-unused-parameter")
+add_compile_options("-v")
+add_link_options(-undefined dynamic_lookup)
 
 cmake_minimum_required(VERSION 3.8)
 project(xeus-clasp)
@@ -118,11 +119,13 @@ set(XEUS_CLASP_HEADERS
 add_library(xeus-clasp SHARED ${XEUS_CLASP_SRC} ${XEUS_CLASP_HEADERS})
 
 # xclasp is the target for the kernel executable
-add_executable(xclasp src/main.cpp)
+add_library(xclasp SHARED src/main.cpp)
 set_target_properties(xclasp PROPERTIES ENABLE_EXPORTS 1)
 # TODO
 #target_link_libraries(xclasp PRIVATE pybind11::pybind11 xeus-clasp)
 target_link_libraries(xclasp PRIVATE xeus-clasp)
+# boehm-all-cxx)p
+#link_directories(/Users/meister/Development/clasp-llvm9/build/boehm/fasl)
 
 if (APPLE)
   set_target_properties(xclasp xeus-clasp PROPERTIES
@@ -152,12 +155,12 @@ target_include_directories(xeus-clasp
 ##### Directories for clasp ##
 ##############################
 ##############################
-include_directories("~/Development/clasp/build/boehm/")
-include_directories("~/Development/clasp/build/boehm/generated/")
-include_directories("~/Development/clasp/include/clasp/main/")
-include_directories("~/Development/clasp/include/")
+include_directories("~/Development/clasp-llvm9/build/boehm/")
+include_directories("~/Development/clasp-llvm9/build/boehm/generated/")
+include_directories("~/Development/clasp-llvm9/include/clasp/main/")
+include_directories("~/Development/clasp-llvm9/include/")
 include_directories("/usr/local/Cellar/llvm/9.0.1/include")
-#include_directories("~/Development/clasp/src/")
+#include_directories("~/Development/clasp-llvm9/src/")
 
 # TODO
 #target_link_libraries(xeus-clasp PUBLIC pybind11::embed xeus)
