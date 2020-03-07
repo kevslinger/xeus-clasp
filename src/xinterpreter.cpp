@@ -37,14 +37,25 @@ namespace xclasp
                                              nl::json /*user_expressions*/,
                                              bool allow_stdin)
   {
-    std::clog << "Trying to execute " << code << "\n";
+      std::clog << __FUNCTION__ << "Trying to execute " << code << "\n";
     core::SimpleBaseString_sp sbs = core::SimpleBaseString_O::make(code);
     core::SimpleBaseString_sp eval = core::SimpleBaseString_O::make("EVALUATE");
     core::SimpleBaseString_sp pkg = core::SimpleBaseString_O::make("XCLASP");
     core::Symbol_sp eval_sym = core::cl__intern(eval,pkg);
-    core::eval::funcall(eval_sym,sbs);
-    /* TODO: Implement me*/
-    return nullptr;
+    core::T_mv result = core::eval::funcall(eval_sym,sbs);
+    // Implement something like xeus-python formatted_docstring(code)
+    nl::json kernel_res;
+    kernel_res["status"] = "ok";
+    kernel_res["payload"] = nl::json::array();
+    kernel_res["payload"][0] = nl::json::object({
+                                                 {"data", {
+                                                           {"text/plain", _rep_(result)}
+                                                     }},
+                                                 {"source", "page"},
+                                                 {"start", 0}
+        });
+    kernel_res["user_expressions"] = nl::json::object();
+    return kernel_res;
   }
 
   nl::json interpreter::complete_request_impl(

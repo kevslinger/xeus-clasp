@@ -34,8 +34,7 @@ std::string extract_filename(int& argc, const char* argv[])
 }
 
 
-extern "C" {
-    int start_interpreter(const std::string& file_name)
+int start_interpreter(const std::string& file_name)
 {
     printf("%s:%d:%s  file_name = %s\n", __FILE__, __LINE__, __FUNCTION__, file_name.c_str());
     const char* argv[] = {"xclasp"};
@@ -98,12 +97,10 @@ extern "C" {
 
     return 0;
 }
-   
-}
 
 void startup()
 {
-    printf("%s:%d Starting up\n", __FILE__, __LINE__ );
+    printf("%s:%d Starting up expose with clbind\n", __FILE__, __LINE__ );
     using namespace clbind;
     package("XCLASP") [
                         def("start-interpreter",&start_interpreter)
