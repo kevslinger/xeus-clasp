@@ -42,9 +42,21 @@ namespace xclasp
     core::SimpleBaseString_sp eval = core::SimpleBaseString_O::make("EVALUATE");
     core::SimpleBaseString_sp pkg = core::SimpleBaseString_O::make("XCLASP");
     core::Symbol_sp eval_sym = core::cl__intern(eval,pkg);
+    core::StringOutputStream_sp stdout = gc::As<core::StringOutputStream_sp>(core::clasp_make_string_output_stream());
+    core::DynamicScopeManager scope1(ext::_sym__PLUS_processStandardOutput_PLUS_,stdout);
+    core::StringOutputStream_sp stderr = gc::As<core::StringOutputStream_sp>(core::clasp_make_string_output_stream());
+    core::DynamicScopeManager scope2(ext::_sym__PLUS_processErrorOutput_PLUS_,stderr);
     core::T_mv result = core::eval::funcall(eval_sym,sbs);
     // Implement something like xeus-python formatted_docstring(code)
     nl::json kernel_res;
+    core::String_sp stdout_str = stdout->getAndReset();
+    core::String_sp stderr_str = stderr->getAndReset();
+    if (core::cl__length(stdout_str)>0) {
+        this->publish_stream("stdout",stdout_str->get_std_string());
+    }
+    if (core::cl__length(stderr_str)>0) {
+        this->publish_stream("stderr",stderr_str->get_std_string());
+    }
     kernel_res["status"] = "ok";
     kernel_res["payload"] = nl::json::array();
     kernel_res["payload"][0] = nl::json::object({

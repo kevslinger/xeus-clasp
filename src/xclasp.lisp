@@ -6,7 +6,6 @@
 (in-package :xclasp)
 
 (defun evaluate (msg)
-  (format t "From Common Lisp evaluate: ~s~%" msg)
   (let ((expr (read-from-string msg)))
     (eval expr)))
 
