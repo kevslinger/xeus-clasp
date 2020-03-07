@@ -35,11 +35,12 @@ std::string extract_filename(int& argc, const char* argv[])
 
 
 extern "C" {
-int start_interpreter()
+    int start_interpreter(const std::string& file_name)
 {
+    printf("%s:%d:%s  file_name = %s\n", __FILE__, __LINE__, __FUNCTION__, file_name.c_str());
     const char* argv[] = {"xclasp"};
     int argc = 1;
-    std::string file_name = extract_filename(argc, argv);
+    //    std::string file_name = extract_filename(argc, argv);
     using interpreter_ptr = std::unique_ptr<xclasp::interpreter>;
     interpreter_ptr interpreter = interpreter_ptr(new xclasp::interpreter(argc, argv));
     
@@ -76,22 +77,21 @@ int start_interpreter()
                                  xeus::make_xserver_shell_main,
                                  xclasp::make_clasp_debugger);
             const auto& config = kernel.get_config();
-            std::clog <<
-                "Starting xeus-clasp kernel...\n\n"
-                "If you want to connect to this kernel from another client, just copy"
-                " and paste the following content inside of a `kernel.json` file. And then run for example:\n\n"
-                "# jupyter console --existing kernel.json\n\n"
-                "kernel.json\n```\n{\n"
-                "    \"transport\": \"" + config.m_transport + "\",\n"
-                "    \"ip\": \"" + config.m_ip + "\",\n"
-                "    \"control_port\": " + config.m_control_port + ",\n"
-                "    \"shell_port\": " + config.m_shell_port + ",\n"
-                "    \"stdin_port\": " + config.m_stdin_port + ",\n"
-                "    \"iopub_port\": " + config.m_iopub_port + ",\n"
-                "    \"hb_port\": " + config.m_hb_port + ",\n"
-                "    \"signature_scheme\": \"" + config.m_signature_scheme + "\",\n"
-                "    \"key\": \"" + config.m_key + "\"\n"
-                "}\n```\n";
+            std::clog << "Starting xeus-clasp kernel...\n\n"
+                      << "If you want to connect to this kernel from another client, just copy"
+                      << " and paste the following content inside of a `kernel.json` file. And then run for example:\n\n"
+                      << "# jupyter console --existing kernel.json\n\n"
+                      << "kernel.json\n```\n{\n"
+                      << "    \"transport\": \"" << config.m_transport << "\",\n"
+                      << "    \"ip\": \"" << config.m_ip << "\",\n"
+                      << "    \"control_port\": " << config.m_control_port << ",\n"
+                      << "    \"shell_port\": " << config.m_shell_port << ",\n"
+                      << "    \"stdin_port\": " << config.m_stdin_port << ",\n"
+                      << "    \"iopub_port\": " << config.m_iopub_port << ",\n"
+                      << "    \"hb_port\": " << config.m_hb_port << ",\n"
+                      << "    \"signature_scheme\": \"" << config.m_signature_scheme << "\",\n"
+                      << "    \"key\": \"" << config.m_key << "\"\n"
+                      << "}\n```\n";
 
             kernel.start();
         }
@@ -105,7 +105,7 @@ void startup()
 {
     printf("%s:%d Starting up\n", __FILE__, __LINE__ );
     using namespace clbind;
-    package("XCLASpP") [
+    package("XCLASP") [
                         def("start-interpreter",&start_interpreter)
 		   ];
 }

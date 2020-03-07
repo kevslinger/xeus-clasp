@@ -7,6 +7,7 @@
 
 #include "xeus-clasp/xinterpreter.hpp"
 #include "xeus-clasp/xeus_clasp_config.hpp"
+#include <clasp/clasp.h>
 
 namespace nl=nlohmann;
 
@@ -37,6 +38,11 @@ namespace xclasp
                                              bool allow_stdin)
   {
     std::clog << "Trying to execute " << code << "\n";
+    core::SimpleBaseString_sp sbs = core::SimpleBaseString_O::make(code);
+    core::SimpleBaseString_sp eval = core::SimpleBaseString_O::make("EVALUATE");
+    core::SimpleBaseString_sp pkg = core::SimpleBaseString_O::make("XCLASP");
+    core::Symbol_sp eval_sym = core::cl__intern(eval,pkg);
+    core::eval::funcall(eval_sym,sbs);
     /* TODO: Implement me*/
     return nullptr;
   }
