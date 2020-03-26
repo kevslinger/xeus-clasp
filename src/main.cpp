@@ -11,6 +11,12 @@
 #include "xeus-clasp/xinterpreter.hpp"
 #include "xdebugger.hpp"
 
+#include "xwidgets/xbutton.hpp"
+#include "xwidgets/xnumeral.hpp"
+
+#include "xwidgets/xnumber.hpp"
+#include "xwidgets/xslider.hpp"
+
 #include "clasp/clasp.h"
 
 
@@ -98,13 +104,54 @@ int start_interpreter(const std::string& file_name)
     return 0;
 }
 
+
+struct Foo {
+    int _x;
+    int _y;
+    int _z;
+    Foo() {};
+    void setFoo(int x, int y, int z) {
+        this->_x = x;
+        this->_y = y;
+        this->_z = z;
+    }
+    core::List_sp getFoo() {
+        return core::Cons_O::createList(core::make_fixnum(this->_x),
+                                        core::make_fixnum(this->_y),
+                                        core::make_fixnum(this->_z));
+    }
+};
+
+
+namespace xw
+{
+    
+struct DoubleSlider : xslider<double> {
+    template <>
+    struct xnumber_traits<double>
+    {
+        using value_type = double;
+    };
+  
+};
+
+};
+
 void startup()
 {
     printf("%s:%d Starting up expose with clbind\n", __FILE__, __LINE__ );
     using namespace clbind;
     package("XCLASP") [
-                        def("start-interpreter",&start_interpreter)
-		   ];
+                       def("start-interpreter",&start_interpreter)
+                       ,
+                       class_<Foo>("Foo",no_default_constructor)
+                       .         def("setFoo",&Foo::setFoo)
+                       .         def("getFoo",&Foo::getFoo)
+                       ,
+                       class_<xw::xbutton<bool>>("Button",no_default_constructor)
+                       ,
+                       class_<xw::DoubleSlider>("DoubleSlider",no_default_constructor)
+                       ];
 }
 
 CLASP_REGISTER_STARTUP(startup);
