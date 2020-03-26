@@ -1,0 +1,11 @@
+export CANDO_LISP_SOURCE_DIR=$HOME/Development/clasp/projects/cando/src
+export CLASP_APP_DIR=$HOME/.local/clasp
+export xeus_DIR=$HOME/./opt/miniconda3/lib/cmake/xeus
+export xtl_DIR=$HOME/./opt/miniconda3/lib/cmake/xtl
+export OPENSSL_ROOT_DIR=/usr/local/Cellar/openssl/1.0.2s/
+export EXTERNALS_CLASP_DIR=$HOME/Development/externals-clasp
+export nlohmann_json_DIR=$HOME/./opt/miniconda3/lib/cmake/nlohmann_json
+export CLASP_QUICKLISP_DIRECTORY=$HOME/quicklisp
+export cppzmq_DIR=$HOME/opt/miniconda3/share/cmake/cppzmq
+export xproperty_DIR=$HOME/opt/miniconda3/lib/cmake/xproperty/
+export PATH=/usr/local/Cellar/llvm/9.0.1/bin:$PATH
