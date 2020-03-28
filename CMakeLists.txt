@@ -1,4 +1,4 @@
-add_compile_options("-v")
+#add_compile_options("-v")
 add_link_options(-undefined dynamic_lookup)
 
 cmake_minimum_required(VERSION 3.8)
@@ -106,6 +106,8 @@ set(XEUS_CLASP_SRC
   #src/xtraceback.hpp
   src/xutils.cpp
   src/xutils.hpp
+  #KEVIN experiment TODO
+  src/xwidgets.cpp
   )
 
 set(XEUS_CLASP_HEADERS
@@ -155,11 +157,18 @@ target_include_directories(xeus-clasp
 ##### Directories for clasp ##
 ##############################
 ##############################
-include_directories("~/Development/clasp-llvm9/build/boehm/")
-include_directories("~/Development/clasp-llvm9/build/boehm/generated/")
-include_directories("~/Development/clasp-llvm9/include/clasp/main/")
-include_directories("~/Development/clasp-llvm9/include/")
+include_directories("~/Development/clasp/build/boehm/")
+include_directories("~/Development/clasp/build/boehm/generated/")
+include_directories("~/Development/clasp/include/clasp/main/")
+include_directories("~/Development/clasp/include/")
 include_directories("/usr/local/Cellar/llvm/9.0.1/include")
+##################
+##################
+#### Trying to add
+# Includes for widgets
+###############
+include_directories("~/Development/xwidgets/include")
+include_directories("~/Development/xproperty/include")
 #include_directories("~/Development/clasp-llvm9/src/")
 
 # TODO

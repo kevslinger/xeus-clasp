@@ -1,9 +1,9 @@
 {
   "display_name": "xclasp",
   "argv": [
-      "/Users/meister/Development/clasp-llvm9/build/boehm/iclasp-boehm",
+      "~/Development/clasp/build/boehm/iclasp-boehm",
       "-l",
-      "/Users/meister/Development/xeus-clasp/src/xclasp.lisp",
+      "~/Development/xeus-clasp/src/xclasp.lisp",
       "--",
       "{connection_file}"
   ],
